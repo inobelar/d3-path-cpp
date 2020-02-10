@@ -90,7 +90,7 @@ public:
      * @param endAngle End angle of arc segment
      * @param anticlockwise Flag indicating directionality (true = anti-clockwise, false = clockwise)
      */
-    virtual void arc(number_t x, number_t y, number_t radius, number_t startAngle, number_t endAngle, bool anticlockwise = true) = 0;
+    virtual void arc(number_t x, number_t y, number_t radius, number_t startAngle, number_t endAngle, bool anticlockwise = false) = 0;
 
     /**
      * Creates a new subpath containing just the four points ⟨x, y⟩, ⟨x + w, y⟩, ⟨x + w, y + h⟩, ⟨x, y + h⟩,

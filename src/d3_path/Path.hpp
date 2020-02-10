@@ -28,7 +28,7 @@ public:
 
     void arcTo(number_t x1, number_t y1, number_t x2, number_t y2, number_t r) override;
 
-    void arc(number_t x, number_t y, number_t r, number_t a0, number_t a1, bool ccw) override;
+    void arc(number_t x, number_t y, number_t r, number_t a0, number_t a1, bool ccw = false) override;
 
     void rect(number_t x, number_t y, number_t w, number_t h) override;
 

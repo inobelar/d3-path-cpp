@@ -11,5 +11,4 @@ inline d3_path::Path path() {
 
 } // namespace d3_path
 
-
 #endif // D3_PATH_INDEX_HPP
