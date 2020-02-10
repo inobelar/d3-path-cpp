@@ -5,7 +5,7 @@
 ## TODO:
 
 - [ ] add tests
-- [ ] additional backers (like qt::painter / skia)
+- [ ] additional backends (like qt::painter / skia)
 - [ ] `CMake` instead `qmake`
 
 ## Usage
