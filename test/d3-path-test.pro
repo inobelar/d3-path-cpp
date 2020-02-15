@@ -11,4 +11,5 @@ SOURCES += \
     path-test.cpp
 
 HEADERS += \
+    _regex_replace.hpp \
     pathEqual.hpp

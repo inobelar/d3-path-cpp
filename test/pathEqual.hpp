@@ -5,10 +5,11 @@
 
 #include "d3_path/Path.hpp"
 
-//#include <regex>
-#include <sstream> // for std::ostringstream
 
-#include <cmath>
+#include "_regex_replace.hpp"
+#include <sstream> // for std::ostringstream
+#include <cmath>   // for std::abs(), std::round()
+#include <iomanip> // for std::setprecision()
 
 // IMPORTANT NOTE: used concrete d3_path::Path, instead of (more generic)
 // d3_path::PathInterface because, otherwise it's NOT printed in failed tests.
@@ -23,8 +24,22 @@ namespace Catch {
 
 namespace detail {
 
-// FIXME: currently unused
-static const std::string reNumber = R"(/[-+]?(?:\d+\.\d+|\d+\.|\.\d+|\d+)(?:[eE][-]?\d+)?/g)";
+inline std::string toFixed(double value, int n) {
+    std::ostringstream out;
+    out << std::setprecision(n)  << value;
+    return out.str();
+}
+
+static const std::string reNumber = R"([-+]?(?:\d+\.\d+|\d+\.|\.\d+|\d+)(?:[eE][-]?\d+)?)";
+
+std::string formatNumber(const std::smatch& match) {
+    const double s = std::stod( match.str() );
+    return (std::abs(s - std::round(s)) < 1e-6) ? std::to_string( std::round(s) ) : toFixed(s, 6);
+}
+
+std::string normalizePath(const std::string& path) {
+    return utils::regex_replace(path, std::regex(reNumber), formatNumber);
+}
 
 } // namespace detail
 
@@ -43,9 +58,10 @@ public:
     {
         const std::string path_str = path.toString();
 
-        // TODO: implement: normalizePath() and formatNumber()
+        const std::string actual   = detail::normalizePath(path_str);
+        const std::string expected = detail::normalizePath(m_str   );
 
-        return path_str == m_str;
+        return (actual == expected);
     }
 
     // Produces a string describing what this matcher does. It should include
