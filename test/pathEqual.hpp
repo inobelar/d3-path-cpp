@@ -3,12 +3,23 @@
 
 #include "catch/catch.hpp"
 
-#include "d3_path/PathInterface.hpp"
+#include "d3_path/Path.hpp"
 
 //#include <regex>
 #include <sstream> // for std::ostringstream
 
 #include <cmath>
+
+// IMPORTANT NOTE: used concrete d3_path::Path, instead of (more generic)
+// d3_path::PathInterface because, otherwise it's NOT printed in failed tests.
+namespace Catch {
+    template<>
+    struct StringMaker<d3_path::Path> {
+        static std::string convert( const d3_path::Path& path ) {
+            return path.toString();
+        }
+    };
+}
 
 namespace detail {
 
